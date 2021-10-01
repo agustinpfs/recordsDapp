@@ -4,6 +4,10 @@ pragma solidity ^0.8.6;
 contract RecordContract {
     uint256 public recordsCounter = 0;
 
+    constructor() {
+        createRecord("my first task", "my first description");
+    }
+
     struct Record {
         uint256 id;
         string title;
@@ -34,5 +38,11 @@ contract RecordContract {
             block.timestamp
         );
         recordsCounter++;
+    }
+
+    function toggleDone(uint256 _id) public {
+        Record memory _record = records[_id];
+        _record.done = !_record.done;
+        records[_id] = _record;
     }
 }
