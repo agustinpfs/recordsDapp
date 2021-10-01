@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity ^0.8.6;
 
 contract RecordContract {
     uint256 public recordsCounter = 0;
@@ -23,7 +23,7 @@ contract RecordContract {
 
     mapping(uint256 => Record) public records;
 
-    function createTask(string memory _title, string memory _description)
+    function createRecord(string memory _title, string memory _description)
         public
     {
         records[recordsCounter] = Record(
