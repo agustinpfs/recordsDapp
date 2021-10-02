@@ -30,6 +30,7 @@ contract RecordContract {
     function createRecord(string memory _title, string memory _description)
         public
     {
+        recordsCounter++;
         records[recordsCounter] = Record(
             recordsCounter,
             _title,
@@ -37,7 +38,6 @@ contract RecordContract {
             false,
             block.timestamp
         );
-        recordsCounter++;
     }
 
     function toggleDone(uint256 _id) public {
