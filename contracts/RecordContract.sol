@@ -5,7 +5,7 @@ contract RecordContract {
     uint256 public recordsCounter = 0;
 
     constructor() {
-        createRecord("my first task", "my first description");
+        createRecord("my first record", "my first description");
     }
 
     struct Record {
@@ -16,14 +16,15 @@ contract RecordContract {
         uint256 createdAt;
     }
 
-    // event RecordCreated(
-    //     uint256 id,
-    //     string title,
-    //     string description,
-    //     bool done,
-    //     uint256 createdAt
-    // );
-    // event RecordToggledDone(uint256 id, bool done);
+    event RecordCreated(
+        uint256 id,
+        string title,
+        string description,
+        bool done,
+        uint256 createdAt
+    );
+
+    event RecordToggledDone(uint256 id, bool done);
 
     mapping(uint256 => Record) public records;
 
@@ -38,11 +39,19 @@ contract RecordContract {
             false,
             block.timestamp
         );
+        emit RecordCreated(
+            recordsCounter,
+            _title,
+            _description,
+            false,
+            block.timestamp
+        );
     }
 
     function toggleDone(uint256 _id) public {
         Record memory _record = records[_id];
         _record.done = !_record.done;
         records[_id] = _record;
+        emit RecordToggledDone(_id, _record.done);
     }
 }
